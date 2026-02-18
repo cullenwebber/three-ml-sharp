@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+* {
+	@apply antialiased tracking-tight;
+}
+
+@theme {
+}
