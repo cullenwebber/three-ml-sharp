@@ -12,9 +12,10 @@ export class CameraRig {
 	constructor(camera, options = {}) {
 		this.camera = camera;
 		this.target = options.target || new THREE.Vector3(0, 0, 0);
-		this.xLimit = options.xLimit || [-5, 5];
+		this.xLimit = options.xLimit || [-10, 10];
 		this.yLimit = options.yLimit || null;
 		this.damping = options.damping || 2;
+		this.elapsed = 0;
 
 		// normalized pointer (-1..1)
 		this.pointer = { x: 0, y: 0 };
@@ -34,7 +35,6 @@ export class CameraRig {
 	 * @param {number} delta - Time delta in seconds
 	 */
 	update(delta) {
-		// Example: x reacts to pointer.x, scaled
 		const targetX = this.target.x + this.pointer.x * 2;
 		const limitedX = Math.max(
 			this.xLimit[0],
@@ -47,7 +47,6 @@ export class CameraRig {
 			delta,
 		);
 
-		// Optional: y reacts to pointer.y
 		if (this.yLimit) {
 			const targetY = this.target.y + this.pointer.y * 10;
 			const limitedY = Math.max(
@@ -62,7 +61,11 @@ export class CameraRig {
 			);
 		}
 
+		this.elapsed += delta;
+		this.camera.position.z = 3 + Math.sin(this.elapsed * 0.5);
+
 		// Always look at target
-		// this.camera.lookAt(this.target);
+		this.camera.lookAt(this.target);
+		this.camera.rotation.z = Math.sin(this.elapsed * 0.5) * 0.1;
 	}
 }

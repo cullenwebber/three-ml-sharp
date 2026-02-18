@@ -35,8 +35,9 @@ class WebGLContext {
 		this.renderer.setPixelRatio(this.pixelRatio);
 
 		this.renderer.shadowMap.enabled = false;
-		// this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-		// this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+		this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+		this.renderer.toneMappingExposure = 1.0;
+		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 	}
 
 	getFullScreenDimensions() {

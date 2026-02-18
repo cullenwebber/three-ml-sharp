@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import WebGLContext from "./WebGLContext";
+import PostProcessing from "./PostProcessing";
 import Scene from "../scenes/Scene";
 
 class Three {
@@ -13,6 +14,11 @@ class Three {
 		this.context = new WebGLContext(this.container);
 		this.context.init();
 		this.scene = new Scene();
+		this.postProcessing = new PostProcessing(
+			this.context.renderer,
+			this.scene.scene,
+			this.scene.camera,
+		);
 		this.#animate();
 		this.#addResizeListener();
 	}
@@ -27,8 +33,7 @@ class Three {
 	}
 
 	#render() {
-		this.context.renderer &&
-			this.context.renderer.render(this.scene.scene, this.scene.camera);
+		this.postProcessing.render();
 	}
 
 	#addResizeListener() {
@@ -39,6 +44,7 @@ class Three {
 		const { width, height } = this.context.getFullScreenDimensions();
 		this.context.onResize(width, height);
 		this.scene.onResize(width, height);
+		this.postProcessing.onResize(width, height);
 	}
 }
 

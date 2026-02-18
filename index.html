@@ -8,6 +8,19 @@
 	</head>
 	<body>
 		<div id="app" class="h-lvh w-full"></div>
+		<div
+			id="loader"
+			class="fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-700"
+		>
+			<div class="flex flex-col items-center gap-3">
+				<div class="h-1 w-48 overflow-hidden rounded-full bg-white/10">
+					<div
+						id="loader-bar"
+						class="h-full w-0 rounded-full bg-white transition-[width] duration-150"
+					></div>
+				</div>
+			</div>
+		</div>
 		<script type="module" src="/src/main.js"></script>
 	</body>
 </html>
